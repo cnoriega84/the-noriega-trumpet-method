@@ -1,0 +1,3197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carlos Noriega Trumpet Method</title>
+  <style>
+    :root{
+      /* Base palette (user preference) */
+      --carbon-black: #1c1c1cff;
+      --alabaster-grey: #daddd8ff;
+      --soft-linen: #ecebe4ff;
+      --platinum: #eef0f2ff;
+      --ghost-white: #fafaffff;
+
+      /* Theme */
+      --bg: var(--carbon-black);
+
+      /* Text */
+      --text: var(--ghost-white);
+      --muted: color-mix(in srgb, var(--ghost-white) 72%, var(--alabaster-grey));
+      --faint: color-mix(in srgb, var(--ghost-white) 55%, var(--alabaster-grey));
+
+      /* Glass surfaces */
+      --glass: rgba(250,250,255,.06);
+      --glass2: rgba(250,250,255,.09);
+      --glass-strong: rgba(250,250,255,.13);
+      --border: rgba(250,250,255,.14);
+      --border-strong: rgba(250,250,255,.22);
+      --blur: 14px;
+
+      /* Accents (kept very neutral) */
+      --accent: var(--soft-linen);
+      --accent2: var(--platinum);
+      --warn: var(--alabaster-grey);
+
+      /* Softer shadow */
+      --shadow: 0 18px 60px rgba(0,0,0,.42);
+      --shadow-soft: 0 10px 34px rgba(0,0,0,.26);
+
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 12% 12%, rgba(250,250,255,.07), transparent 62%),
+        radial-gradient(1000px 700px at 88% 18%, rgba(236,235,228,.06), transparent 62%),
+        radial-gradient(900px 700px at 60% 92%, rgba(238,240,242,.05), transparent 62%),
+        linear-gradient(180deg, rgba(250,250,255,.03), transparent 45%),
+        var(--bg);
+    }
+
+    a{ color: inherit; }
+
+    /* Glass helper: use on any surface that should look like frosted glass */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 100vh;
+    }
+
+    @media (max-width: 980px){
+      .app{ grid-template-columns: 1fr; }
+      .sidebar{ position: sticky; top:0; z-index:5; }
+    }
+
+    .sidebar{
+      border-right: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      backdrop-filter: blur(calc(var(--blur) + 4px)) saturate(150%);
+      -webkit-backdrop-filter: blur(calc(var(--blur) + 4px)) saturate(150%);
+    }
+
+    .sidebar-inner{ padding: 20px; }
+
+    .brand{
+      display:flex; gap:12px; align-items:center;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+
+    .logo{
+      width:40px; height:40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display:grid; place-items:center;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .brand h1{
+      font-size: 14px;
+      margin:0;
+      line-height: 1.15;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .search{
+      margin-top: 14px;
+      display:flex; gap:10px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+
+    .search input{
+      width:100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .search .kbd{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.03);
+      white-space: nowrap;
+    }
+
+    .nav{
+      margin-top: 14px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      box-shadow: 0 12px 36px rgba(0,0,0,.22);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+
+    .nav a{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      padding: 10px 10px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    .nav a.active{ background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+
+    .badge{
+      margin-left:auto;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--faint);
+    }
+
+    .safety{
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,204,102,.35);
+      background: linear-gradient(180deg, rgba(255,204,102,.14), rgba(255,255,255,.03));
+      color: rgba(255,245,220,.92);
+      box-shadow: 0 12px 34px rgba(0,0,0,.18);
+      backdrop-filter: blur(var(--blur)) saturate(150%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+    }
+    .safety strong{ color: #ffd98d; }
+    .safety p{ margin: 8px 0 0; font-size: 12px; line-height: 1.45; color: rgba(255,240,200,.85); }
+
+    .content{
+      padding: 28px;
+    }
+
+    .hero{
+      padding: 22px;
+      border-radius: calc(var(--radius) + 8px);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(calc(var(--blur) + 6px)) saturate(155%);
+      -webkit-backdrop-filter: blur(calc(var(--blur) + 6px)) saturate(155%);
+    }
+    .hero h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+    .hero p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 75ch;
+      line-height: 1.55;
+    }
+
+    .pillrow{
+      margin-top: 14px;
+      display:flex; flex-wrap:wrap; gap: 10px;
+    }
+    .pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    .pill.accent{ border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+    .pill.good{ border-color: rgba(35,196,131,.35); background: rgba(35,196,131,.12); }
+
+    .section{
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+      box-shadow: 0 14px 44px rgba(0,0,0,.24);
+      backdrop-filter: blur(var(--blur)) saturate(145%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(145%);
+    }
+
+    .section h3{
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .lead{
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    details{
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.18);
+      backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(140%);
+      -webkit-backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(140%);
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      font-weight: 650;
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    summary .dot{
+      width:10px; height:10px; border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 90%, white);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+      backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(140%);
+      -webkit-backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(140%);
+    }
+    .card h4{ margin: 0 0 8px; font-size: 13px; color: var(--text); }
+    .card ul{ margin: 0 0 0 18px; color: var(--muted); }
+    .card p{ margin: 0; color: var(--muted); }
+
+    .quote{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in srgb, var(--alabaster-grey) 38%, transparent);
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--soft-linen) 14%, transparent),
+        rgba(250,250,255,.035)
+      );
+      color: color-mix(in srgb, var(--ghost-white) 92%, var(--platinum));
+      box-shadow: 0 12px 34px rgba(0,0,0,.18);
+      backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(150%);
+      -webkit-backdrop-filter: blur(calc(var(--blur) - 2px)) saturate(150%);
+    }
+
+    .footer{
+      margin-top: 24px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      color: var(--faint);
+      font-size: 12px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.18);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+
+    .hidden{ display:none !important; }
+
+    .nav-title{
+      padding: 10px 10px 6px;
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav-note{
+      padding: 0 10px 10px;
+      color: var(--faint);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <div class="brand">
+          <div class="logo" aria-label="Trumpet">🎺</div>
+          <div>
+            <h1>Carlos Noriega Trumpet Method</h1>
+            <p>Anatomy • Pedagogy • Practical Truth</p>
+          </div>
+        </div>
+
+        <div class="search" title="Search topics">
+          <input id="search" type="search" placeholder="Search chapters (e.g., mouthpiece, Maggio, force)…" />
+          <div class="kbd">/</div>
+        </div>
+
+        <nav class="nav" id="nav">
+          <a href="#ch1" data-target="ch1"><span>Chapter 1</span><span class="badge">Why conflict</span></a>
+          <a href="#ch2" data-target="ch2"><span>Chapter 2</span><span class="badge">Anatomy</span></a>
+          <a href="#ch3" data-target="ch3"><span>Chapter 3</span><span class="badge">Vibration</span></a>
+          <a href="#ch4" data-target="ch4"><span>Chapter 4</span><span class="badge">Placement</span></a>
+          <a href="#ch5" data-target="ch5"><span>Chapter 5</span><span class="badge">Fit</span></a>
+          <a href="#ch6" data-target="ch6"><span>Chapter 6</span><span class="badge">Arban</span></a>
+          <a href="#ch7" data-target="ch7"><span>Chapter 7</span><span class="badge">Caruso</span></a>
+          <a href="#ch8" data-target="ch8"><span>Chapter 8</span><span class="badge">Maggio</span></a>
+          <a href="#ch9" data-target="ch9"><span>Chapter 9</span><span class="badge">Reinhardt</span></a>
+          <a href="#ch10" data-target="ch10"><span>Chapter 10</span><span class="badge">Force vs efficiency</span></a>
+          <a href="#ch11" data-target="ch11"><span>Chapter 11</span><span class="badge">Individualization</span></a>
+          <a href="#ch12" data-target="ch12"><span>Chapter 12</span><span class="badge">Myths</span></a>
+          <a href="#ch13" data-target="ch13"><span>Chapter 13</span><span class="badge">Application</span></a>
+          <a href="#ch14" data-target="ch14"><span>Chapter 14</span><span class="badge">Don’t change</span></a>
+          <a href="#ch15" data-target="ch15"><span>Chapter 15</span><span class="badge">Clarke</span></a>
+          <a href="#ch16" data-target="ch16"><span>Chapter 16</span><span class="badge">Stamp</span></a>
+          <a href="#conclusion" data-target="conclusion"><span>Conclusion</span><span class="badge">Honest pedagogy</span></a>
+        </nav>
+
+        <nav class="nav" id="pdf-nav" aria-label="Downloadable PDFs">
+          <div class="nav-title">Downloadable PDFs</div>
+
+          <a href="books/carmine-caruso-musical-calisthenics-for-brass.pdf" target="_blank" rel="noopener">
+            <span>Caruso — Musical Calisthenics</span><span class="badge">PDF</span>
+          </a>
+          <a href="books/louis-maggio-system-for-brass.pdf" target="_blank" rel="noopener">
+            <span>Maggio — System for Brass</span><span class="badge">PDF</span>
+          </a>
+          <a href="books/donald-reinhardt-advanced-concone-studies.pdf" target="_blank" rel="noopener">
+            <span>Reinhardt — Advanced Concone Studies</span><span class="badge">PDF</span>
+          </a>
+          <a href="books/max-schlossberg-daily-drill-and-technical-studies-for-trumpet.pdf" target="_blank" rel="noopener">
+            <span>Schlossberg — Daily Drills</span><span class="badge">PDF</span>
+          </a>
+          <a href="books/james-stamp.pdf" target="_blank" rel="noopener">
+            <span>Stamp — Warm-Ups (Stamp book)</span><span class="badge">PDF</span>
+          </a>
+
+          <a href="books/arbans-trumpet.pdf" target="_blank" rel="noopener">
+            <span>Arban</span><span class="badge">PDF</span>
+          </a>
+
+          <a href="books/Clarke%20Studies%20for%20trumpet.pdf" target="_blank" rel="noopener">
+            <span>Clarke Studies for Trumpet</span><span class="badge">PDF</span>
+          </a>
+          <!-- Removed duplicate Clarke copies -->
+
+          <a href="books/kupdf.net_cichowicz-flow-studies-trumpet.pdf" target="_blank" rel="noopener">
+            <span>Cichowicz — Flow Studies</span><span class="badge">PDF</span>
+          </a>
+
+          <!-- nav note removed -->
+        </nav>
+
+        <nav class="nav" id="warmup-nav" aria-label="Trumpet Warm Up">
+          <div class="nav-title">Trumpet Warm Up</div>
+
+          <a href="https://youtu.be/lNA0JKr9tSE?si=exb0NGE9pDhKuvg0" target="_blank" rel="noopener">
+            <span>Mouthpiece warmup</span><span class="badge">Video</span>
+          </a>
+          <a href="https://youtu.be/Nn07PrfJfwo?si=IRscW716ZsnAodmE" target="_blank" rel="noopener">
+            <span>Mouthpiece warmup (alt)</span><span class="badge">Video</span>
+          </a>
+          <a href="https://youtu.be/2lz-Mh3Iu0g?si=vlKy0kypKFfd85WP" target="_blank" rel="noopener">
+            <span>Longtones / lip bends</span><span class="badge">Video</span>
+          </a>
+          <a href="https://youtu.be/7fUKxzQkSZY?si=kVMp4ykHdze5JhWf" target="_blank" rel="noopener">
+            <span>Flow studies</span><span class="badge">Video</span>
+          </a>
+          <a href="https://youtu.be/43aPO8eQC-U?si=NTV3YgeVncCl28-q" target="_blank" rel="noopener">
+            <span>Centering exercise</span><span class="badge">Video</span>
+          </a>
+          <a href="https://youtu.be/AkL74s7_qcM?si=AtQvcMpKhCeETwXe" target="_blank" rel="noopener">
+            <span>Lip slurs</span><span class="badge">Video</span>
+          </a>
+        </nav>
+
+        <!-- Safety note removed -->
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- Hero section removed -->
+
+      <!-- Chapter 1 -->
+      <section class="section" id="ch1" data-chapter>
+        <h3>Chapter 1: Why Embouchure Pedagogy Is So Conflicted</h3>
+        <p class="lead">
+          Trumpet embouchure pedagogy is uniquely fragmented because it lives at the intersection of anatomy,
+          acoustics, physiology, psychology, and tradition. Those domains evolved independently—so trumpet
+          teaching inherited contradictions.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>What created the conflict?</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Historically: observational, outcome-based teaching</h4>
+              <ul>
+                <li>Teachers taught what worked for them or their best students.</li>
+                <li>Methods produced great players but rarely explained <em>why</em>.</li>
+                <li>Success often hid anatomical bias (what fit the teacher’s body).</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>By mid‑20th century: pressure intensified</h4>
+              <ul>
+                <li><strong>Standardization</strong>: schools wanted uniform models despite anatomy variation.</li>
+                <li><strong>Performance demands</strong>: higher, louder, longer, more styles.</li>
+                <li><strong>Systems</strong>: Maggio, Caruso, Reinhardt attempted repeatable frameworks.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <div class="quote">
+          Bottom line: not one truth—<strong>overlapping partial truths</strong>, each optimized for particular anatomies,
+          musical demands, and teaching priorities.
+        </div>
+
+        <details>
+          <summary><span class="dot"></span>What this project tries to do</summary>
+          <ul>
+            <li>Map where systems agree.</li>
+            <li>Map where they diverge.</li>
+            <li>Explain why divergence exists (anatomy + workload + priorities).</li>
+            <li>Replace myths with diagnostic thinking.</li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- Chapter 2 -->
+      <section class="section" id="ch2" data-chapter>
+        <h3>Chapter 2: Embouchure Anatomy — The Physical Reality</h3>
+        <p class="lead">
+          Every embouchure is built on the same components, but no two players assemble them the same way.
+          Anatomy doesn’t dictate musical success—yet it sets the boundary conditions for what will be stable,
+          efficient, and sustainable.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>2.1 Why anatomy must come first</summary>
+          <p class="lead">
+            Every embouchure discussion that begins with “do this” instead of “observe this” is already flawed.
+            Trumpet embouchure is not an abstract technique; it’s a physical system constrained by anatomy.
+          </p>
+          <ul>
+            <li>Pedagogy often implies anatomy is a secondary variable. In practice, anatomy sets the boundary conditions.</li>
+            <li>This explains why the same method produces different outcomes across students, and why a student can succeed with one teacher and fail with another.</li>
+            <li>The goal is not to label students “good” or “bad,” but to identify what movements are available, which compensations are likely, and where efficiency will naturally emerge—or resist.</li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>2.2 The orbicularis oris: coordination, not strength</summary>
+          <p class="lead">
+            The orbicularis oris is frequently described as “the lip muscle,” but this oversimplification has caused
+            decades of misunderstanding. It is not a single circular muscle; it’s a complex interlacing connected to
+            surrounding facial musculature.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h4>Primary functions in trumpet playing</h4>
+              <ul>
+                <li>Creating a seal</li>
+                <li>Shaping the aperture</li>
+                <li>Coordinating vibration</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>What it is not designed for</h4>
+              <ul>
+                <li>Sustaining high isometric force for long durations</li>
+                <li>Replacing efficient vibration with brute contraction</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="quote">
+            Pedagogical consequence: “strong chops” cues often produce reduced vibration amplitude, diminished resonance,
+            increased fatigue, and eventual instability.
+          </div>
+
+          <div class="card gray">
+            <h4>What works instead</h4>
+            <p>
+              Efficient embouchures use orbicularis oris dynamically—micro-adjustments instead of rigid contraction.
+              Coordination-based approaches tend to rehabilitate more reliably than strength-chasing.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.3 Surrounding facial musculature: the hidden system</summary>
+          <p class="lead">
+            The embouchure does not function in isolation. Surrounding muscles provide shape, direction, and stabilization.
+          </p>
+          <div class="grid">
+            <div class="card">
+              <h4>Key contributors (functional view)</h4>
+              <ul>
+                <li><strong>Buccinator:</strong> cheek tension control</li>
+                <li><strong>Levator/depressor labii:</strong> vertical aperture tendencies</li>
+                <li><strong>Zygomatics:</strong> corner engagement patterns</li>
+                <li><strong>Mentallis:</strong> lower lip tension modulation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Pedagogy mapped to anatomy</h4>
+              <ul>
+                <li><strong>Traditional</strong>: often expects these to develop through repetition without naming them.</li>
+                <li><strong>Caruso</strong>: synchronized engagement via fixed patterns.</li>
+                <li><strong>Maggio</strong>: forward engagement that can recruit aggressively.</li>
+                <li><strong>Reinhardt</strong>: recruitment patterns differ by anatomy.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">No system is universally correct; each assumes a default muscular response that may or may not match the student.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.4 Lips: tissue, not levers</summary>
+          <p class="lead">Lips are vibratory tissue, not mechanical levers. Two variables dominate embouchure behavior:</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Thicker lips tend to</h4>
+              <ul>
+                <li>Cushion mouthpiece pressure more effectively</li>
+                <li>Tolerate wider rims</li>
+                <li>Require greater airflow velocity to initiate vibration</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Thinner lips often</h4>
+              <ul>
+                <li>Respond quickly</li>
+                <li>Favor smaller contact areas</li>
+                <li>Fatigue faster under pressure</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">A teacher’s “perfect demonstration” may be physically impossible for a student with different lip anatomy to replicate.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.5 Teeth and dental structure: the unspoken variable</summary>
+          <p class="lead">Teeth determine mouthpiece angle, lip compression patterns, and jaw mobility.</p>
+          <ul>
+            <li>Overbite vs underbite</li>
+            <li>Tooth height</li>
+            <li>Spacing irregularities</li>
+            <li>Orthodontic history</li>
+          </ul>
+          <div class="card gray">
+            <h4>Diagnostic indicator</h4>
+            <p>
+              If a student cannot maintain tone consistency across registers without dramatic pressure increases,
+              examine dental geometry before prescribing embouchure changes.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.6 The jaw: static vs dynamic models</summary>
+          <p class="lead">
+            Some traditions assume a static jaw; others allow or encourage motion. In reality:
+          </p>
+          <ul>
+            <li>Some players naturally pivot the jaw during register changes.</li>
+            <li>Others stabilize the jaw and adjust aperture shape instead.</li>
+            <li>Both can be efficient if anatomically compatible.</li>
+          </ul>
+          <div class="quote">
+            Jaw motion is not a technique to be taught universally. It’s often an observable consequence of anatomy interacting with range demands.
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.7 The tongue: acoustic control, not structural support</summary>
+          <p class="lead">
+            The tongue’s function is acoustic and aerodynamic: shaping airflow velocity, adjusting resonance, aiding articulation.
+            Confusing tongue position with embouchure formation leads to throat tension and delayed response.
+          </p>
+          <div class="card gray">
+            <h4>Practical rule</h4>
+            <p>Efficient embouchures allow the tongue to function independently of lip tension.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.8 Coordination over isolation</summary>
+          <p class="lead">
+            Isolating single components (“corners,” “top lip,” “bottom lip”) often creates micromanagement.
+            Embouchure function emerges from coordination.
+          </p>
+          <ul>
+            <li>Excess mirror work can backfire.</li>
+            <li>Over-verbal instruction can destabilize players.</li>
+            <li>Some improve faster with minimal explanation because the nervous system self-organizes more effectively than conscious micromanagement.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.9 Practice applications (anatomy-aware)</summary>
+          <p class="lead">These exercises reinforce efficiency without overloading any single component.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Long Tone Resonance Mapping</h4>
+              <p class="lead">Arban long tones focused on vibration quality, not volume.</p>
+              <ul>
+                <li>Practice link: <a href="https://imslp.org/wiki/Grande_m%C3%A9thode_compl%C3%A8te_de_cornet_%C3%A0_pistons_(Arban,_Jean-Baptiste)" target="_blank" rel="noopener">IMSLP Arban</a></li>
+                <li>Listen-and-play reference: <a href="https://www.youtube.com/watch?v=Kp7Z3dC1D9Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Caruso Six Notes (coordination emphasis)</h4>
+              <p class="lead">Synchronized engagement rather than strength.</p>
+              <ul>
+                <li>Demonstration: <a href="https://www.youtube.com/watch?v=Y9gZ8VZ7vC0" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Soft Clarke studies (mezzo-piano)</h4>
+            <p class="lead">Encourage tissue vibration and reduce pressure habits.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=7c2zE0O7p4M" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.10 Teacher diagnostics: what to observe</summary>
+          <ul>
+            <li>Does tone degrade before fatigue?</li>
+            <li>Does pressure spike above the staff?</li>
+            <li>Does sound improve when volume decreases?</li>
+            <li>Does recovery time exceed 24 hours?</li>
+          </ul>
+          <div class="quote">If yes, the issue is rarely “weak chops.” It’s usually misaligned anatomical strategy.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>2.11 Summary</summary>
+          <p class="lead">
+            Embouchure anatomy does not dictate musical success—but it defines the rules of engagement.
+            Effective pedagogy begins with observation, patience, and humility.
+          </p>
+        </details>
+      </section>
+
+      <!-- Chapter 3 -->
+      <section class="section" id="ch3" data-chapter>
+        <h3>Chapter 3: Sound Production — Vibration Before Strength</h3>
+        <p class="lead">
+          The trumpet embouchure exists to allow vibration, not to resist air. Vibration depends on tissue
+          elasticity, aperture shape, and a balanced relationship between air and tissue.
+        </p>
+        <details open>
+          <summary><span class="dot"></span>Core dependencies</summary>
+          <ul>
+            <li>Lip tissue elasticity</li>
+            <li>Aperture shape</li>
+            <li>Pressure balance between air and tissue</li>
+          </ul>
+        </details>
+        <details>
+          <summary><span class="dot"></span>Why compression is a trap</summary>
+          <p class="lead">
+            Excess muscular engagement reduces vibration efficiency. Many players confuse control with compression,
+            creating short-term gains and long-term instability.
+          </p>
+          <div class="quote">
+            Pedagogies emphasizing coordination over force (Caruso, some Maggio interpretations) often produce longer careers.
+          </div>
+        </details>
+      </section>
+
+      <!-- Chapter 4 -->
+      <section class="section" id="ch4" data-chapter>
+        <h3>Chapter 4: Mouthpiece Placement &amp; Fit — Geometry, Not Dogma</h3>
+        <p class="lead">
+          “Placement” is not a single decision. It’s a set of interacting geometries—vertical balance, horizontal alignment,
+          rim contact area, angle of entry, and pressure distribution. Small changes can unlock range or destabilize a working system.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>4.1 Why mouthpiece placement is so controversial</summary>
+          <p class="lead">
+            Mouthpiece placement is emotionally charged because it exposes the limits of universal instruction. Teachers want certainty.
+            Students want rules. Placement offers neither.
+          </p>
+          <ul>
+            <li>Historically, pedagogy treated centered placement as a given; repetition was expected to solve the rest.</li>
+            <li>As performance demands escalated (range, volume, endurance, versatility), placement became a performance variable.</li>
+            <li>Different anatomies solved the same demands differently—revealing that older assumptions were incomplete.</li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>4.2 What “placement” actually means</summary>
+          <p class="lead">Placement is a set of interacting geometries:</p>
+          <ul>
+            <li><strong>Vertical distribution</strong> (top lip vs bottom lip)</li>
+            <li><strong>Horizontal alignment</strong> (centered vs offset)</li>
+            <li><strong>Rim contact area</strong></li>
+            <li><strong>Angle of entry</strong> relative to teeth and jaw</li>
+            <li><strong>Pressure distribution</strong> across tissue and facial structure</li>
+          </ul>
+          <div class="quote">Placement is not cosmetic. It is structural.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.3 Vertical placement: upper vs lower lip balance</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>The traditional assumption</h4>
+              <p class="lead">Many classical approaches imply a roughly 50/50 distribution. Not wrong—just incomplete.</p>
+            </div>
+            <div class="card">
+              <h4>Anatomical reality</h4>
+              <ul>
+                <li>Lip thickness disparity</li>
+                <li>Tooth exposure</li>
+                <li>Overbite/underbite relationship</li>
+                <li>Jaw resting position</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card gray" style="margin-top:12px;">
+            <h4>Common patterns (not rules)</h4>
+            <ul>
+              <li>Fuller upper lips may favor slightly higher placement.</li>
+              <li>Thinner upper lips may rely more on lower-lip cushioning.</li>
+              <li>Pronounced overbites can naturally shift balance downward.</li>
+            </ul>
+          </div>
+          <div class="quote">
+            Forcing symmetry can lead to excess pressure, unstable aperture, and early fatigue.
+          </div>
+          <div class="card">
+            <h4>Reinhardt’s contribution</h4>
+            <p class="lead">He normalized non-equal distributions by observing and categorizing outcomes rather than prescribing one placement.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.4 Horizontal placement: centered vs offset</summary>
+          <p class="lead">Centered placement is common and pedagogically comfortable—but not anatomically universal.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Why offsets happen</h4>
+              <ul>
+                <li>Tooth spacing irregularities</li>
+                <li>Asymmetrical lip musculature</li>
+                <li>Minor jaw deviations</li>
+                <li>Dominant-side coordination patterns</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Offset is functional when…</h4>
+              <ul>
+                <li>Tone stays consistent across registers</li>
+                <li>Articulation remains clear</li>
+                <li>Pressure does not spike excessively</li>
+                <li>Recovery time is normal</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card gray" style="margin-top:12px;">
+            <h4>Offset becomes problematic when…</h4>
+            <ul>
+              <li>It is forced deliberately without anatomical need</li>
+              <li>It masks excessive pressure</li>
+              <li>It compensates for inefficient air use</li>
+            </ul>
+          </div>
+          <div class="quote">The mistake is not discouraging offset; it’s failing to diagnose why it exists.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.5 Mouthpiece angle: the invisible variable</summary>
+          <p class="lead">Angle of entry is rarely taught explicitly, yet it shapes how force transfers and how vibration aligns with airflow.</p>
+          <ul>
+            <li>Angle is constrained by dental structure, jaw hinge orientation, and lip protrusion capacity.</li>
+            <li>Players often discover optimal angle subconsciously.</li>
+            <li>Visually “correcting” angle without understanding anatomy frequently introduces dysfunction.</li>
+          </ul>
+          <div class="quote">Angle is not a choice. It is a consequence.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.6 Pressure: the most misunderstood element</summary>
+          <p class="lead">Pressure exists. The question is how it’s distributed, how it changes dynamically, and how quickly tissue recovers.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Efficient pressure use</h4>
+              <ul>
+                <li>Distribute pressure across facial structure</li>
+                <li>Let air do the work</li>
+                <li>Avoid static compression</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Inefficient pressure use</h4>
+              <ul>
+                <li>Localize force at the rim–lip interface</li>
+                <li>Substitute pressure for coordination</li>
+                <li>Experience diminishing returns</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Pressure is not the enemy. Unmanaged pressure is.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.7 Mouthpiece fit: where equipment actually matters</summary>
+          <p class="lead">Mouthpieces do not fix embouchures—but they can support or sabotage them.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Rim width</h4>
+              <ul>
+                <li>Wider rims distribute pressure (often improve endurance)</li>
+                <li>Narrower rims increase tactile feedback (often fatigue faster)</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Rim contour</h4>
+              <ul>
+                <li>Sharp rims clarify attacks but elevate injury risk</li>
+                <li>Rounded rims favor comfort but may reduce precision</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>Cup depth</h4>
+              <ul>
+                <li>Deeper cups favor resonance and low-register stability</li>
+                <li>Shallower cups can aid upper-register efficiency but raise compression demands</li>
+              </ul>
+            </div>
+            <div class="card gray">
+              <h4>Definition of “correct”</h4>
+              <p>The correct mouthpiece is the one that complements anatomy, supports placement strategy, and does not require compensation.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.8 Why mouthpiece experiments often fail</summary>
+          <ul>
+            <li>Players cycle gear searching for solutions that are really placement/coordination problems.</li>
+            <li>Equipment can mask inefficiency temporarily but rarely solves it.</li>
+            <li>Evaluate mouthpieces only after placement is stable, airflow consistent, and pressure reasonable.</li>
+          </ul>
+          <div class="quote">Otherwise, you’re tuning the symptom, not the system.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.9 Pedagogical systems compared through placement</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Traditional (Arban-derived)</h4>
+              <ul>
+                <li>Centered placement, moderate pressure tolerance</li>
+                <li>Effective for lyrical, moderate-demand playing</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Caruso</h4>
+              <ul>
+                <li>Largely placement-neutral</li>
+                <li>Coordination regardless of geometry</li>
+                <li>Excels in rehabilitation contexts</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>Maggio</h4>
+              <ul>
+                <li>Explicit manipulation of placement/compression</li>
+                <li>Can unlock range rapidly</li>
+                <li>Requires careful monitoring</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Reinhardt</h4>
+              <ul>
+                <li>Placement follows anatomy</li>
+                <li>Diagnostic rather than prescriptive</li>
+                <li>Requires informed guidance</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">No system is universally superior. Each assumes a placement strategy, whether stated or not.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.10 Practice applications (placement-aware)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Clarke Studies with placement awareness</h4>
+              <ul>
+                <li>Monitor pressure changes, tone stability, response consistency</li>
+                <li>IMSLP score: <a href="https://imslp.org/wiki/Technical_Studies_(Clarke,_Herbert_L.)" target="_blank" rel="noopener">Clarke</a></li>
+                <li>Demo: <a href="https://www.youtube.com/watch?v=7c2zE0O7p4M" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Schlossberg long tones</h4>
+              <ul>
+                <li>Use for pressure distribution awareness</li>
+                <li>Example: <a href="https://www.youtube.com/watch?v=ZPZkF6QKc8M" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Soft slur studies (low volume)</h4>
+            <p class="lead">Low-volume slurs reveal placement instability immediately.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=0WqkXxW8M4Y" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.11 Teacher diagnostics: placement red flags</summary>
+          <ul>
+            <li>Upper register requires sudden pressure spikes</li>
+            <li>Tone thins unpredictably</li>
+            <li>Endurance collapses despite regular practice</li>
+            <li>Recovery takes more than 24–48 hours</li>
+          </ul>
+          <div class="card gray">
+            <h4>Avoid changing placement when…</h4>
+            <ul>
+              <li>Sound is consistent</li>
+              <li>Endurance matches musical demands</li>
+              <li>Recovery is quick</li>
+              <li>Problems are stylistic, not mechanical</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.12 When not to change placement</summary>
+          <p class="lead">The most dangerous placement change is an unnecessary one.</p>
+          <ul>
+            <li>If a player meets professional demands</li>
+            <li>Maintains tone quality</li>
+            <li>Avoids injury</li>
+          </ul>
+          <div class="quote">Changing placement for aesthetic reasons is pedagogically irresponsible.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>4.13 Summary</summary>
+          <p class="lead">Mouthpiece placement is not a rule to follow. It is a geometry to understand.</p>
+          <div class="quote">Dogma fails where anatomy differs. Diagnosis succeeds where observation leads.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 5 -->
+      <section class="section" id="ch5" data-chapter>
+        <h3>Chapter 5: Mouthpiece Fit — When Equipment Actually Matters</h3>
+        <p class="lead">
+          Mouthpiece talk is often commercialized. But fit is real. Equipment should support an embouchure,
+          not attempt to fix one.
+        </p>
+        <details open>
+          <summary><span class="dot"></span>Fit factors that matter</summary>
+          <ul>
+            <li>Wider rims distribute pressure but reduce tactile feedback.</li>
+            <li>Deeper cups favor lower resonance but demand stronger coordination.</li>
+            <li>Sharp rims can clarify attacks but elevate injury risk.</li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- Chapter 6 -->
+      <section class="section" id="ch6" data-chapter>
+        <h3>Chapter 6: Traditional Pedagogy — Arban, Conservatory Norms, and Their Limits</h3>
+        <p class="lead">
+          No discussion of trumpet embouchure pedagogy can begin anywhere but with the Arban tradition.
+          Even teachers who claim to reject it are usually reacting to it.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>6.1 Why traditional pedagogy still matters</summary>
+          <p class="lead">Traditional pedagogy works often enough to survive. Its failure is not total—it is conditional.</p>
+          <ul>
+            <li>It produced generations of orchestral trumpeters, cornet soloists, band players, and teachers.</li>
+            <li>Understanding where it succeeds—and where it quietly fails—explains why alternative systems emerged.</li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>6.2 Assumptions embedded in the Arban model</summary>
+          <p class="lead">Arban doesn’t explicitly teach mechanics; it assumes norms:</p>
+          <ul>
+            <li>Relatively centered mouthpiece placement</li>
+            <li>Moderate, balanced pressure</li>
+            <li>Progressive endurance through repetition</li>
+            <li>Improvement through musical material</li>
+          </ul>
+          <div class="card gray">
+            <h4>Historical context</h4>
+            <ul>
+              <li>Mid-19th-century repertoire rarely exceeded high C consistently.</li>
+              <li>Emphasis: lyrical phrasing and articulation.</li>
+              <li>Little expectation of modern lead-style endurance.</li>
+            </ul>
+          </div>
+          <div class="quote">Within those constraints, the Arban model is elegant and effective.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.3 Embouchure by omission</summary>
+          <p class="lead">Arban’s strength is also its weakness: it avoids micromanagement.</p>
+          <ul>
+            <li>Relies on repetition, musical focus, and gradual exposure.</li>
+            <li>For anatomically “average” players, efficient solutions can self-organize without interference.</li>
+            <li>For outliers, it provides no corrective framework—often yielding early success followed by unexplained plateaus.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.4 Why conservatories standardized the Arban model</summary>
+          <p class="lead">Institutions favor systems that are scalable and aesthetically consistent.</p>
+          <ul>
+            <li>Minimizes subjective diagnosis and anatomy discussion.</li>
+            <li>Fits studio classes, juries, and ensemble training.</li>
+            <li>Produces consistent tone concepts—and often similar technical ceilings.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.5 Where traditional pedagogy begins to break down</summary>
+          <p class="lead">Traditional pedagogy struggles most in three areas:</p>
+          <div class="grid">
+            <div class="card">
+              <h4>1) Extended upper register</h4>
+              <p class="lead">Repeated high-register demands expose inefficiencies Arban-style repetition doesn’t directly address.</p>
+            </div>
+            <div class="card">
+              <h4>2) Extreme endurance</h4>
+              <p class="lead">Modern schedules exceed the recovery assumptions of 19th-century pedagogy.</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>3) Anatomical outliers</h4>
+            <p class="lead">Atypical dental structure, lip proportions, or jaw motion often get “practice more” instead of diagnostics.</p>
+          </div>
+          <div class="quote">In these cases, repetition amplifies problems rather than solving them.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.6 The myth of “just do the work”</summary>
+          <p class="lead">Effort often helps—until it doesn’t.</p>
+          <ul>
+            <li>When progress stalls, students are told they lack discipline or are “forcing” without explanation.</li>
+            <li>This shifts blame onto the player and delays appropriate intervention.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.7 Why tradition produces quiet casualties</summary>
+          <p class="lead">Traditional pedagogy rarely fails dramatically; it fails through attrition.</p>
+          <ul>
+            <li>Players who sound good but fatigue quickly.</li>
+            <li>Players who play beautifully but avoid demanding repertoire.</li>
+            <li>Players who internalize frustration as personal inadequacy.</li>
+          </ul>
+          <div class="quote">Because they don’t collapse visibly, their struggles are rarely addressed pedagogically.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.8 Tradition and embouchure change</summary>
+          <p class="lead">Traditional training discourages embouchure change—often for good reason.</p>
+          <ul>
+            <li>Unnecessary changes can destabilize functioning players and cause injury.</li>
+            <li>But tradition can miss when change is necessary due to anatomical mismatch.</li>
+          </ul>
+          <div class="quote">The real choice is not “never change” vs “start over.” Intelligent modification exists between.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.9 How alternative systems responded to traditional limits</summary>
+          <ul>
+            <li><strong>Caruso</strong> addressed coordination and recovery.</li>
+            <li><strong>Maggio</strong> addressed upper-register collapse and imposed mechanical order.</li>
+            <li><strong>Reinhardt</strong> addressed anatomical diversity via diagnostics.</li>
+          </ul>
+          <div class="quote">None reject tradition entirely. They supplement what Arban leaves unsaid.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.10 Practice applications (traditional, recontextualized)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Arban long tones (efficiency focus)</h4>
+              <ul>
+                <li>Avoid volume escalation; focus on resonance consistency.</li>
+                <li>Score: <a href="https://imslp.org/wiki/Grande_m%C3%A9thode_compl%C3%A8te_de_cornet_%C3%A0_pistons_(Arban,_Jean-Baptiste)" target="_blank" rel="noopener">IMSLP</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Interval studies (recovery awareness)</h4>
+              <ul>
+                <li>Rest between reps to assess efficiency.</li>
+                <li>Demo: <a href="https://www.youtube.com/watch?v=Kp7Z3dC1D9Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Articulation studies without pressure increase</h4>
+            <p class="lead">Monitor response consistency more than speed.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=7c2zE0O7p4M" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.11 Teacher diagnostics: when tradition is enough</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Sufficient when</h4>
+              <ul>
+                <li>Tone develops naturally</li>
+                <li>Endurance scales with repertoire</li>
+                <li>Recovery is rapid</li>
+                <li>Range increases without force</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Insufficient when</h4>
+              <ul>
+                <li>Progress stalls despite consistent work</li>
+                <li>Fatigue rises faster than demand</li>
+                <li>Students avoid technical extremes</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.12 Updating tradition without abandoning it</summary>
+          <p class="lead">The solution is not to discard tradition, but to contextualize it.</p>
+          <ul>
+            <li>Recognize anatomical variance.</li>
+            <li>Monitor recovery.</li>
+            <li>Intervene selectively.</li>
+          </ul>
+          <div class="quote">Arban remains a foundation—not a ceiling.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>6.13 Summary</summary>
+          <p class="lead">Traditional pedagogy survives because it works often enough. Its failure is incompleteness.</p>
+          <div class="quote">Tradition should guide—not blind.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 7 -->
+      <section class="section" id="ch7" data-chapter>
+        <h3>Chapter 7: Musical Calisthenics (Caruso) — Coordination Over Strength</h3>
+        <p class="lead">
+          Carmine Caruso’s work is widely misunderstood because it contradicts the instinct to equate effort with improvement.
+          Caruso does not reward effort. It rewards precision and restraint.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>7.1 Why Caruso is so widely misunderstood</summary>
+          <ul>
+            <li>Players often expect range-building, endurance conditioning, or strength development.</li>
+            <li>Caruso offers coordination without sensation: the work often feels “too easy.”</li>
+            <li>Some get breakthroughs; others see no immediate benefit and quit early.</li>
+          </ul>
+          <div class="quote">Caruso does not reward effort. It rewards precision and restraint.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.2 Core assumption: the nervous system leads</summary>
+          <p class="lead">The embouchure is not strengthened into efficiency; it is organized into it.</p>
+          <ul>
+            <li>Caruso targets neuromuscular timing more than tissue strength.</li>
+            <li>Goals: eliminate unnecessary motion, synchronize air and embouchure, remove conscious interference.</li>
+            <li>Conflicts with pedagogies that emphasize muscular effort, fatigue as a metric, or sensation as feedback.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.3 Fixed patterns, fixed timing</summary>
+          <p class="lead">Fixed timing is not arbitrary—it’s the mechanism.</p>
+          <ul>
+            <li>Removes interpretive variability.</li>
+            <li>Prevents compensation.</li>
+            <li>Exposes inefficiency immediately.</li>
+          </ul>
+          <div class="quote">If you’re used to “adjusting” your way through problems, Caruso feels like there’s nowhere to hide.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.4 Why Caruso feels “too easy” (and isn’t)</summary>
+          <ul>
+            <li>It can feel physically undemanding and musically uninteresting.</li>
+            <li>It operates below the threshold of conscious control.</li>
+            <li>Targets reflexive coordination and repeatability through low-load repetition.</li>
+          </ul>
+          <div class="quote">If an exercise feels difficult, it is likely being done incorrectly.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.5 Caruso and embouchure anatomy</summary>
+          <p class="lead">Caruso is anatomically neutral: it doesn’t require a specific placement, jaw motion, or lip balance.</p>
+          <ul>
+            <li>Especially useful for rebuilding damaged embouchures.</li>
+            <li>Useful during transitions between systems.</li>
+            <li>Useful for atypical anatomy because it allows self-organization.</li>
+          </ul>
+          <div class="quote">Caruso does not impose structure. It reveals it.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.6 The Six Notes exercise (case study)</summary>
+          <p class="lead">Purpose: synchronized initiation—not range or endurance.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Correct execution</h4>
+              <ul>
+                <li>Air, embouchure, and articulation engage together.</li>
+                <li>No single system dominates.</li>
+                <li>Fatigue remains minimal.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Common errors</h4>
+              <ul>
+                <li>Over-blowing</li>
+                <li>Over-articulating</li>
+                <li>Leaning into the mouthpiece</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Correct execution often feels almost anticlimactic.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.7 Caruso vs strength-based practice</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Traditional model</h4>
+              <p class="lead">Stress → fatigue → recovery → improvement</p>
+            </div>
+            <div class="card">
+              <h4>Caruso model</h4>
+              <p class="lead">Precision → consistency → integration → longevity</p>
+            </div>
+          </div>
+          <div class="quote">Caruso is infrastructure that makes repertoire possible.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.8 Why Caruso is often prescribed too late</summary>
+          <ul>
+            <li>Often introduced after collapse, when progress is slower and psychologically harder.</li>
+            <li>Most effective preventatively, during transitions, and alongside demanding repertoire.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.9 Integrating Caruso with other systems</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>With Arban tradition</h4>
+              <p class="lead">Stabilizes coordination that Arban studies then reinforce.</p>
+            </div>
+            <div class="card">
+              <h4>With Maggio</h4>
+              <p class="lead">Regulates timing and helps prevent over-compression.</p>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>With Reinhardt</h4>
+              <p class="lead">Allows anatomy-based placement strategies to function without interference.</p>
+            </div>
+            <div class="card gray">
+              <h4>Bottom line</h4>
+              <p class="lead">Caruso does not compete with other systems; it conditions the nervous system to support them.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.10 Practice applications</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Six Notes exercise</h4>
+              <ul>
+                <li>Demo: <a href="https://www.youtube.com/watch?v=Y9gZ8VZ7vC0" target="_blank" rel="noopener">YouTube</a></li>
+                <li>Focus: no added effort, strict timing, immediate release.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Time-based long tones</h4>
+              <ul>
+                <li>Hold tones for prescribed durations without variation.</li>
+                <li>Example: <a href="https://www.youtube.com/watch?v=ZPZkF6QKc8M" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Soft slurs with fixed tempo</h4>
+            <p class="lead">Prevents compensation through dynamic change.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=0WqkXxW8M4Y" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.11 Teacher diagnostics: who benefits most</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Ideal for players who…</h4>
+              <ul>
+                <li>Work hard but plateau</li>
+                <li>Fatigue unpredictably</li>
+                <li>Have embouchure instability</li>
+                <li>Lose consistency across days</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Less effective for players who…</h4>
+              <ul>
+                <li>Want immediate range expansion</li>
+                <li>Refuse to reduce effort</li>
+                <li>Need loud/flashy feedback to stay engaged</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.12 Psychological barriers</summary>
+          <p class="lead">Caruso demands patience: subtle progress, reduced sensation, delayed gratification.</p>
+          <div class="quote">Successful practitioners trust outcomes over feelings.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.13 Common misapplications</summary>
+          <ul>
+            <li>Turning Caruso into a warm-up</li>
+            <li>Playing louder “to feel something”</li>
+            <li>Modifying rhythms</li>
+            <li>Chasing fatigue</li>
+          </ul>
+          <div class="quote">Each error undermines the method’s purpose.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>7.14 Summary</summary>
+          <p class="lead">Caruso is not a shortcut. It is a reset.</p>
+          <div class="quote">It doesn’t build embouchure strength—it removes inefficiency.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 8 -->
+      <section class="section" id="ch8" data-chapter>
+        <h3>Chapter 8: The Maggio System — Compression, Forward Motion, and Controlled Risk</h3>
+        <p class="lead">
+          Maggio is one of the few systems that directly manipulates embouchure mechanics. That directness is both its power and its danger.
+          It can produce dramatic success stories—and equally dramatic cautionary tales.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>8.1 Why Maggio provokes such strong reactions</summary>
+          <p class="lead">Maggio intervenes where most systems rely on gradual adaptation.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Common reports of success</h4>
+              <ul>
+                <li>Rapid range expansion</li>
+                <li>Upper-register clarity</li>
+                <li>Renewed confidence after stagnation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Common failure modes</h4>
+              <ul>
+                <li>Excessive stiffness</li>
+                <li>Chronic fatigue</li>
+                <li>Embouchure rigidity</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Both outcomes are predictable once the system is understood.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.2 Historical context: a rehabilitative origin</summary>
+          <p class="lead">Louis Maggio developed his system in response to embouchure collapse after serious injury.</p>
+          <ul>
+            <li>Not designed as universal pedagogy.</li>
+            <li>Intended to reestablish function under damaged conditions.</li>
+            <li>Imposes order where instinct fails.</li>
+          </ul>
+          <div class="quote">Applied to healthy embouchures without modification, Maggio can overshoot its purpose.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.3 Core principles of the Maggio approach</summary>
+          <p class="lead">Three interrelated elements:</p>
+          <ul>
+            <li><strong>Forward embouchure motion</strong></li>
+            <li><strong>Controlled compression</strong></li>
+            <li><strong>Deliberate mouthpiece placement</strong></li>
+          </ul>
+          <div class="quote">Maggio doesn’t wait for coordination to emerge. It forces alignment, then trains maintenance.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.4 Forward motion: what it solves—and what it risks</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>What it can improve fast</h4>
+              <ul>
+                <li>Response</li>
+                <li>Upper-register security</li>
+                <li>Articulation clarity</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>What it can cost</h4>
+              <ul>
+                <li>Reduced tissue elasticity</li>
+                <li>Increased static engagement</li>
+                <li>Less adaptive flexibility</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Forward motion works best as a temporary corrective—not a permanent default.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.5 Compression vs coordination</summary>
+          <p class="lead">Maggio is often called a “compression system.” Only partially true.</p>
+          <ul>
+            <li>Compression is present, but regulated: structured containment rather than brute force.</li>
+            <li>Danger appears when compression replaces airflow, stiffness replaces coordination, and range becomes the only metric.</li>
+          </ul>
+          <div class="quote">Players can confuse “locked-in” with “efficient.”</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.6 Maggio and mouthpiece placement</summary>
+          <p class="lead">Unlike Caruso, Maggio explicitly addresses placement.</p>
+          <div class="card gray">
+            <h4>Common goals</h4>
+            <ul>
+              <li>Stable, repeatable contact point</li>
+              <li>Reduced vertical movement</li>
+              <li>Predictable pressure distribution</li>
+            </ul>
+          </div>
+          <div class="quote">
+            This can be transformative for overly mobile embouchures—and disastrous for anatomies that require flexibility.
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.7 Why Maggio produces fast results</summary>
+          <p class="lead">It yields fast results because it simplifies variables and enforces consistency.</p>
+          <ul>
+            <li>Reducing freedom reduces error.</li>
+            <li>The cost is adaptability: tone color variety, long-performance endurance, and quick recovery may suffer if “Maggio-mode” becomes permanent.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.8 Maggio in the context of anatomy</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Tends to work best when</h4>
+              <ul>
+                <li>Lip tissue is resilient</li>
+                <li>Compression is tolerated well</li>
+                <li>Jaw alignment is stable</li>
+                <li>Aperture collapses under load</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Less suitable when</h4>
+              <ul>
+                <li>The player relies on elasticity</li>
+                <li>Fatigue appears quickly under pressure</li>
+                <li>Compression is already dominant</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">This is why Maggio can feel miraculous to one player and destructive to another.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.9 Integrating Maggio with other systems</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Maggio + Caruso</h4>
+              <p class="lead">Caruso counterbalances Maggio by restoring coordination and release.</p>
+            </div>
+            <div class="card">
+              <h4>Maggio + Arban</h4>
+              <p class="lead">Arban studies add musical context—but should be monitored for tension.</p>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>Maggio + Reinhardt</h4>
+              <p class="lead">Reinhardt diagnostics can test whether Maggio’s geometry aligns with the player’s anatomy.</p>
+            </div>
+            <div class="card gray">
+              <h4>Non-negotiable</h4>
+              <p class="lead">Maggio should never exist in isolation.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.10 Practice applications</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Maggio forward motion exercises</h4>
+              <ul>
+                <li>Use sparingly and under close observation</li>
+                <li>Demo: <a href="https://www.youtube.com/watch?v=QnJmRkR7b7M" target="_blank" rel="noopener">YouTube</a></li>
+                <li>Focus: firm but not rigid; immediate release after each repetition</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Upper-register soft attacks</h4>
+              <ul>
+                <li>Test whether compression is replacing coordination</li>
+                <li>Example: <a href="https://www.youtube.com/watch?v=5jzGQxYwz9Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Recovery-based monitoring</h4>
+            <p class="lead">After sessions, track swelling, next-day response, and tone consistency. Delayed recovery indicates overuse.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.11 Teacher diagnostics: when to use Maggio</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Maggio may be appropriate when</h4>
+              <ul>
+                <li>Range has collapsed</li>
+                <li>Aperture fails under load</li>
+                <li>Coordination-based methods stall</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Maggio should be avoided when</h4>
+              <ul>
+                <li>Fatigue is chronic</li>
+                <li>Tone is already rigid</li>
+                <li>Injury history is present</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.12 Common misapplications</summary>
+          <ul>
+            <li>Using Maggio as a permanent setup</li>
+            <li>Chasing range at the expense of sound</li>
+            <li>Ignoring recovery time</li>
+            <li>Combining Maggio with high-volume playing</li>
+          </ul>
+          <div class="quote">Each accelerates breakdown.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.13 Transitioning out of Maggio</summary>
+          <p class="lead">Successful Maggio use includes an exit strategy.</p>
+          <ul>
+            <li>Gradually reduce compression.</li>
+            <li>Reintroduce elasticity.</li>
+            <li>Restore flexibility.</li>
+          </ul>
+          <div class="quote">Failure to transition often results in plateau or injury.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>8.14 Summary</summary>
+          <p class="lead">Maggio is a powerful intervention, not a universal solution.</p>
+          <ul>
+            <li>Used intelligently, it can restore function, unlock range, and rebuild confidence.</li>
+            <li>Used indiscriminately, it can harden the embouchure, reduce longevity, and shorten careers.</li>
+          </ul>
+          <div class="quote">Maggio demands respect—not devotion.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 9 -->
+      <section class="section" id="ch9" data-chapter>
+        <h3>Chapter 9: The Reinhardt Pivot System — Anatomy, Classification, and Misinterpretation</h3>
+        <p class="lead">
+          Reinhardt’s Pivot System is not a tidy “method.” It’s a diagnostic framework: a way of observing how embouchures actually function
+          across different anatomies.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>9.1 Why Reinhardt is both revered and rejected</summary>
+          <p class="lead">
+            Donald Reinhardt’s work is simultaneously widely cited, rarely read in original form, frequently misunderstood, and often misrepresented.
+          </p>
+          <ul>
+            <li>Unlike Arban, Caruso, or Maggio, Reinhardt didn’t ask: “How should players play?”</li>
+            <li>He asked: “How do successful players already play—and why?”</li>
+            <li>That question is threatening to any pedagogy built on uniformity.</li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>9.2 Core premise: anatomy dictates motion</summary>
+          <p class="lead">Efficient motion emerges as a consequence of anatomy—not a choice.</p>
+          <ul>
+            <li>Reinhardt catalogued outcomes rather than prescribing one placement, jaw motion, or pressure strategy.</li>
+            <li>He observed jaw-motion direction, placement tendencies, pivot behavior across registers, and success/failure patterns.</li>
+            <li>He grouped players by functional similarity, not aesthetic preference.</li>
+          </ul>
+          <div class="quote">This directly contradicts any pedagogy that insists on uniformity.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.3 What the “pivot” actually is (and is not)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>What a pivot is</h4>
+              <ul>
+                <li>A natural change in mouthpiece-to-lip angle across registers</li>
+                <li>Often accompanied by subtle jaw motion</li>
+                <li>Typically unconscious</li>
+                <li>Anatomically constrained</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>What a pivot is not</h4>
+              <ul>
+                <li>A technique to be taught universally</li>
+                <li>A dramatic jaw movement</li>
+                <li>A deliberate mechanical action</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Most efficient pivots are invisible to the player. Teaching a pivot without necessity often creates dysfunction.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.4 Reinhardt’s embouchure classifications</summary>
+          <p class="lead">
+            Reinhardt identified broad embouchure types based on jaw dominance, air direction, lip positioning, and register behavior.
+          </p>
+          <div class="quote">Different players solve the same acoustic problem with different physical strategies. No type is superior.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.5 Why Reinhardt was never centralized</summary>
+          <p class="lead">A common criticism is the lack of a single, authoritative publication. Accurate—but misleading.</p>
+          <ul>
+            <li>Reinhardt worked through private correspondence, clinics, and individualized diagnostics.</li>
+            <li>The system was never intended to be mass-marketed; it required observation, adjustment, and context.</li>
+          </ul>
+          <div class="quote">The lack of a centralized text is a reflection of its diagnostic nature—not a flaw.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.6 Why Reinhardt is so often misapplied</summary>
+          <p class="lead">Most misapplications fall into three patterns:</p>
+          <ul>
+            <li>Teaching pivots to everyone</li>
+            <li>Treating classifications as prescriptions</li>
+            <li>Using the system without diagnostic skill</li>
+          </ul>
+          <div class="quote">Reinhardt is descriptive, not prescriptive. Remove that distinction and insight becomes dogma.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.7 Reinhardt vs other systems</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Compared to Arban</h4>
+              <ul>
+                <li>Arban assumes uniform solutions</li>
+                <li>Reinhardt explains why those solutions fail for some players</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Compared to Caruso</h4>
+              <ul>
+                <li>Caruso stabilizes coordination</li>
+                <li>Reinhardt explains structural constraints</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>Compared to Maggio</h4>
+              <ul>
+                <li>Maggio enforces geometry</li>
+                <li>Reinhardt observes geometry</li>
+              </ul>
+            </div>
+            <div class="card gray">
+              <h4>Role</h4>
+              <p class="lead">Reinhardt doesn’t replace other systems; it explains why they succeed or fail.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.8 The psychological impact of classification</summary>
+          <p class="lead">Classification can be useful—or it can turn into identity fixation.</p>
+          <ul>
+            <li>Players may cling to labels, resist change, or limit exploration.</li>
+            <li>Reinhardt’s intent was to prevent harmful correction and validate anatomical diversity.</li>
+          </ul>
+          <div class="quote">Classification should liberate, not confine.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.9 Practical use of Reinhardt today</summary>
+          <p class="lead">Best applied as a diagnostic lens and troubleshooting framework.</p>
+          <ul>
+            <li>A reality check against dogma</li>
+            <li>A way to avoid unnecessary embouchure changes</li>
+            <li>A way to recognize natural pivot behavior without panic</li>
+            <li>A way to interpret asymmetry as functional rather than “wrong”</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.10 Practice applications (observation-based)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Mirror-free playing</h4>
+              <p class="lead">Observe sound consistency without visual bias.</p>
+              <ul>
+                <li>Example: <a href="https://www.youtube.com/watch?v=ZPZkF6QKc8M" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Register transitions</h4>
+              <p class="lead">Slow slurs across register breaks while observing response consistency.</p>
+              <ul>
+                <li>Demo: <a href="https://www.youtube.com/watch?v=0WqkXxW8M4Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Recording diagnostics</h4>
+            <p class="lead">Audio often reveals instability before physical sensation does.</p>
+            <ul>
+              <li>Reference: <a href="https://www.youtube.com/watch?v=7c2zE0O7p4M" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.11 Teacher diagnostics: when Reinhardt matters most</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Consider Reinhardt-style analysis when</h4>
+              <ul>
+                <li>Students resist traditional solutions</li>
+                <li>Placement changes fail repeatedly</li>
+                <li>Jaw motion appears “uncontrollable”</li>
+                <li>Asymmetry produces better results than symmetry</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Avoid invoking Reinhardt when</h4>
+              <ul>
+                <li>Problems are primarily airflow-related</li>
+                <li>Fundamentals are undeveloped</li>
+                <li>Anxiety is the primary barrier</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.12 The limits of Reinhardt</summary>
+          <p class="lead">Reinhardt explains structure, not artistry.</p>
+          <ul>
+            <li>Does not teach repertoire, phrasing, style, or endurance training directly.</li>
+            <li>Power lies in preventing harm and avoiding unnecessary “corrections.”</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>9.13 Summary</summary>
+          <p class="lead">There is no single correct embouchure—only functional ones.</p>
+          <div class="quote">Reinhardt didn’t give us answers. He gave us permission to look.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 10 -->
+      <section class="section" id="ch10" data-chapter>
+        <h3>Chapter 10: Efficiency vs Force — Endurance, Range, and Injury</h3>
+        <p class="lead">
+          Every trumpet player confronts the same choice: solve musical demands with efficiency, or solve them with force.
+          Both can work. Only one scales.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>10.1 The central conflict in trumpet playing</summary>
+          <p class="lead">Force produces results quickly. Efficiency produces results sustainably.</p>
+          <ul>
+            <li>Force often looks like success—especially in young players—until it doesn’t.</li>
+            <li>This chapter explains why force is seductive, what efficiency actually is, and where force becomes dangerous.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.2 Why force “works” (at first)</summary>
+          <p class="lead">Force works because it compensates for inefficiency.</p>
+          <ul>
+            <li>By increasing mouthpiece pressure, lip compression, and muscular engagement, a player can access higher partials, increase volume, and stabilize pitch temporarily.</li>
+            <li>In short-term contexts (auditions, lead gigs, one-off performances), force can be effective.</li>
+            <li>That’s why teachers struggle to argue against something that “works,” and students equate effort with improvement.</li>
+          </ul>
+          <div class="quote">The problem is not that force exists. The problem is how it accumulates cost.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.3 The physiological cost of force</summary>
+          <p class="lead">Trumpet playing is an endurance activity disguised as a precision task.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>1) Tissue fatigue</h4>
+              <ul>
+                <li>Lip tissue isn’t designed for prolonged compression.</li>
+                <li>Excess pressure reduces blood flow, accelerates swelling, and shortens recovery windows.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>2) Neuromuscular overload</h4>
+              <ul>
+                <li>Static contraction impairs fine motor control.</li>
+                <li>As fatigue increases: aperture coordination degrades, articulation suffers, intonation destabilizes.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>3) Compensation cascades</h4>
+              <ul>
+                <li>Throat tension replaces airflow.</li>
+                <li>Jaw clenching replaces coordination.</li>
+                <li>Tongue stiffness replaces resonance.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>4) Injury risk</h4>
+              <ul>
+                <li>Embouchure collapse</li>
+                <li>Chronic swelling</li>
+                <li>Focal dystonia</li>
+                <li>Performance-ending injuries</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Force doesn’t fail immediately. It fails eventually.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.4 What efficiency actually means</summary>
+          <p class="lead">Efficiency is not “playing softly” and not “using less effort.”</p>
+          <ul>
+            <li>Air initiates vibration more than muscle.</li>
+            <li>Muscles coordinate rather than resist.</li>
+            <li>Pressure distributes dynamically.</li>
+            <li>Recovery time stays short.</li>
+          </ul>
+          <div class="quote">Efficient players still work hard — they just don’t fight the instrument.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.5 Air is necessary but not sufficient</summary>
+          <p class="lead">Air support is essential, but “more air” is not the whole answer.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Common misinterpretation</h4>
+              <ul>
+                <li>“Efficiency = more air” → overblowing</li>
+                <li>Spread tone, lip instability</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Better model</h4>
+              <ul>
+                <li>Air velocity matches aperture size</li>
+                <li>Lip tissue stays elastic</li>
+                <li>Resonance amplifies sound more than force</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Air must be directed, not merely increased.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.6 Range: compression vs coordination</summary>
+          <p class="lead">High range is the most common justification for force-based playing.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Compression model</h4>
+              <ul>
+                <li>Lips squeezed smaller</li>
+                <li>Pressure increases</li>
+                <li>Sound bright and tense</li>
+                <li>Quick results, capped endurance</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Coordination model</h4>
+              <ul>
+                <li>Aperture adjusts dynamically</li>
+                <li>Tongue shapes airflow</li>
+                <li>Lips stay elastic</li>
+                <li>Slower development, scales better</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Most long-career players shift from compression toward coordination over time.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.7 Endurance: the real metric</summary>
+          <p class="lead">Endurance is not a heroic one-session event. It’s a repeatability and recovery metric.</p>
+          <ul>
+            <li>How consistently you recover</li>
+            <li>How repeatable your sound is</li>
+            <li>How little compensation appears under load</li>
+          </ul>
+          <div class="quote">Efficient embouchures recover in hours, not days.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.8 Why teachers miss force problems</summary>
+          <ul>
+            <li>Tone can still sound good.</li>
+            <li>Range can still be impressive.</li>
+            <li>Musical results can still be acceptable.</li>
+          </ul>
+          <div class="card gray">
+            <h4>Subtle red flags</h4>
+            <ul>
+              <li>Swelling after normal rehearsals</li>
+              <li>Declining consistency</li>
+              <li>Increasing reliance on long warm-ups</li>
+              <li>Psychological anxiety around high notes</li>
+            </ul>
+          </div>
+          <div class="quote">By the time obvious problems appear, damage may already be done.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.9 Systems through the efficiency lens</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Arban tradition</h4>
+              <ul>
+                <li>Efficiency assumed, not analyzed</li>
+                <li>Works until demands exceed assumptions</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Caruso</h4>
+              <ul>
+                <li>Explicitly efficiency-driven</li>
+                <li>Eliminates unnecessary motion</li>
+                <li>Excellent for rebuilding damaged embouchures</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:12px;">
+            <div class="card">
+              <h4>Maggio</h4>
+              <ul>
+                <li>Can produce efficiency or force</li>
+                <li>Depends heavily on interpretation</li>
+                <li>Powerful but dangerous without oversight</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Reinhardt</h4>
+              <ul>
+                <li>Recognizes anatomical efficiency differences</li>
+                <li>Explains why force appears necessary for some setups</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Each system can produce either outcome. The difference lies in how it is applied.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.10 Practice strategies for efficiency</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Soft playing in high register</h4>
+              <p class="lead">Soft playing above the staff exposes inefficiency immediately.</p>
+              <ul>
+                <li>Example: <a href="https://www.youtube.com/watch?v=5jzGQxYwz9Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Clarke at reduced volume</h4>
+              <p class="lead">Focus on sound core, not volume.</p>
+              <ul>
+                <li>Score: <a href="https://imslp.org/wiki/Technical_Studies_(Clarke,_Herbert_L.)" target="_blank" rel="noopener">IMSLP</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Caruso time-based exercises</h4>
+            <p class="lead">Coordination under fatigue without chasing strength.</p>
+            <ul>
+              <li>Demonstration: <a href="https://www.youtube.com/watch?v=Y9gZ8VZ7vC0" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.11 Recovery as a diagnostic tool</summary>
+          <ul>
+            <li>How long until lips feel normal?</li>
+            <li>Does sound return quickly the next day?</li>
+            <li>Does fatigue feel localized or systemic?</li>
+          </ul>
+          <div class="quote">Slow recovery is a warning sign, not a badge of honor.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.12 When force is temporarily acceptable</summary>
+          <p class="lead">Force is contextual. It becomes dangerous when it becomes the default.</p>
+          <ul>
+            <li>Short-term force may be unavoidable in extreme lead settings, emergencies, or one-off demands.</li>
+            <li>Problems arise when recovery is ignored and efficiency is never rebuilt.</li>
+          </ul>
+          <div class="quote">Force should be a tool, not a foundation.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.13 Teacher diagnostics: identifying inefficiency</summary>
+          <ul>
+            <li>Collapsing tone under fatigue</li>
+            <li>Pressure spikes with register change</li>
+            <li>Inconsistent articulation</li>
+            <li>Emotional stress around playing</li>
+          </ul>
+          <div class="quote">Efficient players sound relaxed even when playing difficult material.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>10.14 Summary</summary>
+          <p class="lead">Force produces results. Efficiency produces careers.</p>
+          <div class="quote">Every embouchure eventually chooses a side.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 11 -->
+      <section class="section" id="ch11" data-chapter>
+        <h3>Chapter 11: Individualization — Diagnosis, Decision-Making, and When to Intervene</h3>
+        <p class="lead">
+          The most important distinction between a competent trumpet teacher and a great one is diagnostic judgment.
+          Individualization is not a philosophy. It is a discipline.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>11.1 Why individualization is the core skill of teaching</summary>
+          <p class="lead">Exercises are plentiful. Information is abundant. Judgment is rare.</p>
+          <ul>
+            <li>Resist imposing personal solutions.</li>
+            <li>Resist defaulting to familiar systems.</li>
+            <li>Resist mistaking aesthetic preference for functional necessity.</li>
+          </ul>
+          <div class="quote">Pedagogy fails most often when the wrong tool is applied to the wrong problem.</div>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>11.2 Diagnosis before prescription</summary>
+          <p class="lead">Teachers often prescribe first and diagnose later. That’s backwards.</p>
+          <div class="card gray">
+            <h4>Common mismatches</h4>
+            <ul>
+              <li>Range studies assigned to coordination problems</li>
+              <li>Mouthpiece changes prescribed for placement issues</li>
+              <li>Embouchure changes prescribed for airflow deficiencies</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Minimum diagnostic questions</h4>
+            <ul>
+              <li>What fails first: tone, response, or endurance?</li>
+              <li>Does the problem worsen with fatigue?</li>
+              <li>Does rest restore function quickly?</li>
+              <li>Does soft playing improve or degrade results?</li>
+            </ul>
+          </div>
+          <div class="quote">These answers determine whether intervention is necessary at all.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.3 Functional vs aesthetic problems</summary>
+          <p class="lead">Aesthetic dissatisfaction does not justify embouchure intervention.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Aesthetic concerns</h4>
+              <ul>
+                <li>Tone color preferences</li>
+                <li>Visual embouchure appearance</li>
+                <li>Stylistic bias</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Functional concerns</h4>
+              <ul>
+                <li>Inability to meet musical demands</li>
+                <li>Chronic fatigue</li>
+                <li>Inconsistent response</li>
+                <li>Injury risk</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Great teachers know the difference.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.4 When “fixing” is actually harmful</summary>
+          <p class="lead">Many players aren’t broken—they’re over-scrutinized.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Intervention becomes harmful when</h4>
+              <ul>
+                <li>Sound quality is stable</li>
+                <li>Endurance matches repertoire</li>
+                <li>Recovery is reliable</li>
+                <li>Anxiety is the primary complaint</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Focus instead on</h4>
+              <ul>
+                <li>Confidence</li>
+                <li>Musical attention</li>
+                <li>Stress reduction</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Changing mechanics in a functioning system often creates the very problems the student feared.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.5 Red flags that demand intervention</summary>
+          <p class="lead">These point to systemic inefficiency, not lack of effort.</p>
+          <ul>
+            <li>Persistent swelling after normal sessions</li>
+            <li>Declining endurance despite consistent practice</li>
+            <li>Increasing pressure with register change</li>
+            <li>Tone collapse under fatigue</li>
+            <li>Recovery taking multiple days</li>
+          </ul>
+          <div class="quote">Ignoring these indicators is pedagogically irresponsible.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.6 Choosing the right framework</summary>
+          <p class="lead">Once intervention is justified, match the approach to the problem.</p>
+          <ul>
+            <li><strong>Coordination failures</strong> → Caruso-based strategies</li>
+            <li><strong>Upper-register collapse</strong> → carefully monitored Maggio principles</li>
+            <li><strong>Anatomical mismatch</strong> → Reinhardt-style observation and adjustment</li>
+            <li><strong>General instability</strong> → reduced volume, efficiency-first rebuilding</li>
+          </ul>
+          <div class="quote">No single system solves all problems. Choosing one blindly guarantees misapplication.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.7 The danger of over-explaining</summary>
+          <p class="lead">Advanced students often suffer from too much information.</p>
+          <ul>
+            <li>Too much verbal instruction disrupts automatic motor patterns.</li>
+            <li>It increases self-monitoring and elevates anxiety.</li>
+            <li>The nervous system learns best through repetition, consistency, and limited conscious interference.</li>
+          </ul>
+          <div class="quote">Great teachers know when to stop talking.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.8 Progressive vs immediate change</summary>
+          <p class="lead">Some changes should be gradual and reversible. Others require firm boundaries.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Gradual change suits</h4>
+              <ul>
+                <li>Placement refinement</li>
+                <li>Coordination development</li>
+                <li>Endurance rebuilding</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Immediate change may be necessary when</h4>
+              <ul>
+                <li>Injury risk is present</li>
+                <li>Destructive habits are entrenched</li>
+                <li>Collapse is ongoing</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.9 Student psychology and trust</summary>
+          <p class="lead">Embouchure changes affect identity.</p>
+          <ul>
+            <li>Players tie range to self-worth, sound to legitimacy, endurance to professionalism.</li>
+            <li>Intervention without trust leads to resistance, sabotage, and abandonment.</li>
+            <li>Teachers must communicate: why change is needed, what success looks like, and realistic timelines.</li>
+          </ul>
+          <div class="quote">Honesty builds compliance. False optimism destroys it.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.10 Practice design for individual needs</summary>
+          <p class="lead">Generic routines fail because they assume identical problems.</p>
+          <ul>
+            <li>Consider recovery rate, stress tolerance, learning style, and performance context.</li>
+            <li>Sometimes less practice improves results; sometimes more structure is required.</li>
+          </ul>
+          <div class="quote">There is no virtue in uniformity.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.11 Case patterns (common scenarios)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Case 1: High-range specialist</h4>
+              <p class="lead">Sounds great briefly, collapses over time → likely force-dominant.</p>
+              <p>Intervention: efficiency rebuilding + reduced load.</p>
+            </div>
+            <div class="card">
+              <h4>Case 2: “Almost there” conservatory student</h4>
+              <p class="lead">Beautiful tone, limited range → likely anatomical mismatch.</p>
+              <p>Intervention: placement exploration, not brute force.</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Case 3: Burned-out professional</h4>
+            <p class="lead">Once strong, now inconsistent → likely coordination decay.</p>
+            <p>Intervention: Caruso-style reset.</p>
+          </div>
+          <div class="quote">Patterns repeat. Diagnosis simplifies.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.12 Teacher diagnostics checklist</summary>
+          <p class="lead">Before intervening, ask:</p>
+          <ul>
+            <li>Is the player functional?</li>
+            <li>Is the problem reproducible?</li>
+            <li>Does fatigue change behavior?</li>
+            <li>Does rest restore function?</li>
+            <li>Is anxiety driving perception?</li>
+          </ul>
+          <div class="quote">If answers are unclear, observe longer.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>11.13 Summary</summary>
+          <p class="lead">Individualization is not permissiveness. It is precision.</p>
+          <div class="quote">Great teachers identify constraints, then choose interventions that respect them.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 12 -->
+      <section class="section" id="ch12" data-chapter>
+        <h3>Chapter 12: Common Myths in Trumpet Pedagogy (Explicitly Debunked)</h3>
+        <p class="lead">
+          Myths survive in trumpet pedagogy for one reason: they work sometimes. Partial success becomes conviction,
+          and conviction becomes dogma.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>12.1 Why myths persist in trumpet playing</summary>
+          <ul>
+            <li>They succeed for certain anatomies.</li>
+            <li>They succeed in certain musical contexts.</li>
+            <li>They succeed temporarily.</li>
+          </ul>
+          <div class="quote">This isn’t about ridiculing bad advice. It’s about understanding why misleading ideas feel true—and why they fail over time.</div>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>12.2 Myth #1: “There should be no pressure”</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>The reality</h4>
+              <ul>
+                <li>Pressure exists in all brass playing; the instrument must be stabilized against the face.</li>
+                <li>The question is <em>distribution</em>, <em>dynamic change</em>, and <em>recovery</em>—not elimination.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Why the myth survives</h4>
+              <p class="lead">“No pressure” cues often reduce excessive pressure, improving sound/endurance short-term.</p>
+            </div>
+          </div>
+          <div class="card gray" style="margin-top:12px;">
+            <h4>The danger</h4>
+            <ul>
+              <li>Students interpret it literally → destabilize embouchure, lose response.</li>
+              <li>Compensate with throat or jaw tension.</li>
+            </ul>
+          </div>
+          <div class="quote">Efficient players manage pressure intelligently. They do not eliminate it.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.3 Myth #2: “Everyone should play centered”</summary>
+          <p class="lead">Centered placement is common—but it is not mandatory.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Why the myth survives</h4>
+              <p class="lead">Many elite players do play centered, and teachers generalize from visible success.</p>
+            </div>
+            <div class="card">
+              <h4>The reality</h4>
+              <ul>
+                <li>Dental symmetry</li>
+                <li>Lip thickness balance</li>
+                <li>Jaw alignment</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card gray" style="margin-top:12px;">
+            <h4>The danger</h4>
+            <p class="lead">Forcing symmetry where anatomy resists it causes pressure spikes, unstable aperture, and early fatigue.</p>
+          </div>
+          <div class="quote">Centered is common. Centered is not universal.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.4 Myth #3: “High notes mean strong chops”</summary>
+          <p class="lead">High range is not a strength test. It is a coordination test.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Why the myth survives</h4>
+              <p class="lead">Early range gains often come from increased effort, which feels like strength development.</p>
+            </div>
+            <div class="card">
+              <h4>The reality</h4>
+              <ul>
+                <li>Air velocity management</li>
+                <li>Aperture efficiency</li>
+                <li>Timing precision</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Range without endurance is not mastery.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.5 Myth #4: “More practice always fixes the problem”</summary>
+          <p class="lead">This belief has ended more trumpet careers than any other.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Why the myth survives</h4>
+              <p class="lead">For beginners, more practice often does fix problems.</p>
+            </div>
+            <div class="card">
+              <h4>The reality</h4>
+              <ul>
+                <li>Beyond a point, more practice amplifies inefficiency.</li>
+                <li>Accelerates fatigue and reinforces compensations.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">More practice fixes simple problems. Complex problems require better diagnosis.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.6 Myth #5: “One mouthpiece will solve everything”</summary>
+          <p class="lead">Mouthpieces are seductive because they offer an external solution.</p>
+          <ul>
+            <li>They influence pressure distribution, resistance, and response.</li>
+            <li>They do not correct poor coordination, anatomical mismatch, or inefficient airflow.</li>
+          </ul>
+          <div class="quote">The right mouthpiece supports function. It does not create it.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.7 Myth #6: “Embouchure changes are always dangerous”</summary>
+          <p class="lead">Rooted in real risk—then misapplied.</p>
+          <ul>
+            <li>Unnecessary changes are dangerous.</li>
+            <li>Necessary changes can be life-saving.</li>
+          </ul>
+          <div class="card gray">
+            <h4>The real danger</h4>
+            <ul>
+              <li>Poor diagnosis</li>
+              <li>Rushed intervention</li>
+              <li>No recovery monitoring</li>
+            </ul>
+          </div>
+          <div class="quote">Avoiding all change is as harmful as changing indiscriminately.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.8 Myth #7: “Pain is normal”</summary>
+          <p class="lead">Pain is not feedback. It is a warning.</p>
+          <div class="grid">
+            <div class="card">
+              <h4>Reality</h4>
+              <ul>
+                <li>Normal playing may produce fatigue.</li>
+                <li>It should not produce pain.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Correlates strongly with</h4>
+              <ul>
+                <li>Force-based strategies</li>
+                <li>Unmanaged pressure</li>
+                <li>Poor recovery</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">Pain is not discipline. It is dysfunction.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.9 Myth #8: “If it works for a pro, it will work for you”</summary>
+          <p class="lead">Professional success does not equal pedagogical universality.</p>
+          <ul>
+            <li>Pros succeed despite inefficiencies as often as because of efficiencies.</li>
+            <li>Survivorship bias hides the burned-out and the broken.</li>
+          </ul>
+          <div class="quote">Teaching must be based on principles, not personalities.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.10 How teachers accidentally create myths</summary>
+          <ul>
+            <li>Generalizing from personal success</li>
+            <li>Ignoring anatomical variation</li>
+            <li>Rewarding outcomes over process</li>
+          </ul>
+          <div class="quote">The most dangerous myths are delivered with confidence.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.11 Practice applications (myth-proofing)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Soft playing at extreme registers</h4>
+              <p class="lead">Exposes force-based strategies immediately.</p>
+              <ul>
+                <li>Example: <a href="https://www.youtube.com/watch?v=5jzGQxYwz9Y" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Recovery tracking</h4>
+              <p class="lead">Monitor how quickly function returns after sessions.</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Recording over sensation</h4>
+            <p class="lead">Audio reveals truth better than feeling.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=7c2zE0O7p4M" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>12.12 Summary</summary>
+          <p class="lead">Myths persist because they contain fragments of truth.</p>
+          <div class="quote">Maturity is knowing when an idea applies, when it doesn’t, and when it must be abandoned.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 13 -->
+      <section class="section" id="ch13" data-chapter>
+        <h3>Chapter 13: Practical Application — Daily Practice, Transitions, and Long-Term Stability</h3>
+        <p class="lead">
+          Pedagogical ideas are only as good as their implementation. Practice is not neutral:
+          it either reinforces efficiency or amplifies dysfunction.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>13.1 Why practice is where pedagogy succeeds or fails</summary>
+          <p class="lead">
+            Most embouchure failures don’t happen because players misunderstand concepts—they happen because ideas are applied
+            inconsistently or inappropriately in daily practice.
+          </p>
+          <div class="quote">This chapter translates anatomy, systems, and diagnostics into repeatable daily behavior.</div>
+        </details>
+
+        <details open>
+          <summary><span class="dot"></span>13.2 Reframing the purpose of daily practice</summary>
+          <p class="lead">For advanced players, daily practice is less “skill accumulation” and more “system maintenance.”</p>
+          <ul>
+            <li>Reinforce efficient coordination</li>
+            <li>Stabilize placement</li>
+            <li>Monitor pressure use</li>
+            <li>Preserve recovery capacity</li>
+          </ul>
+          <div class="quote">If a routine doesn’t do these things, its difficulty is irrelevant.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.3 The three phases of a functional practice session</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Phase 1: Calibration</h4>
+              <p class="lead">How does the system function today?</p>
+              <ul>
+                <li>Soft long tones</li>
+                <li>Gentle slurs</li>
+                <li>Moderate-range articulation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Phase 2: Development</h4>
+              <p class="lead">Targeted technical work (one primary goal).</p>
+              <ul>
+                <li>Coordination (Caruso-style)</li>
+                <li>Stability (traditional studies)</li>
+                <li>Controlled expansion (Maggio principles)</li>
+                <li>Placement awareness</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Phase 3: Integration</h4>
+            <p class="lead">Reconnect technique to music: etudes, excerpts, repertoire, stylistic work.</p>
+            <div class="quote">If it doesn’t transfer, the problem is how the technique was practiced.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.4 Practice volume: less is often more</summary>
+          <p class="lead">Advanced players often over-practice in response to anxiety.</p>
+          <ul>
+            <li>Excess volume masks inefficiency, delays recovery, and reinforces force-based strategies.</li>
+            <li>If recovery exceeds 24 hours, volume is too high.</li>
+            <li>If response degrades mid-session, efficiency is compromised.</li>
+          </ul>
+          <div class="quote">Practice should build confidence, not fear.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.5 Managing transitions between systems</summary>
+          <p class="lead">Transitions are the most vulnerable period in embouchure development.</p>
+          <div class="card gray">
+            <h4>Safe transition principles</h4>
+            <ul>
+              <li>Change one variable at a time</li>
+              <li>Reduce total workload</li>
+              <li>Expect temporary instability</li>
+              <li>Track recovery obsessively</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Why transitions fail</h4>
+            <ul>
+              <li>Maintaining old output with new mechanics</li>
+              <li>Chasing range during rebuilding</li>
+              <li>Ignoring fatigue signals</li>
+            </ul>
+          </div>
+          <div class="quote">Patience is not optional during transition.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.6 Integrating Caruso into daily practice</summary>
+          <ul>
+            <li>Best placed early: after calibration, before demanding repertoire.</li>
+            <li>Should not be rushed, or used to “wake up” tired chops.</li>
+          </ul>
+          <div class="quote">Caruso prepares coordination. It does not compensate for exhaustion.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.7 Integrating Maggio without overuse</summary>
+          <ul>
+            <li>Apply selectively; monitor closely; pair with recovery strategies.</li>
+            <li>Use short bursts of focused work, then return to softer playing.</li>
+            <li>Rest frequently.</li>
+          </ul>
+          <div class="quote">Maggio should feel temporary and deliberate, not habitual.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.8 Traditional studies as stability tests</summary>
+          <p class="lead">Arban, Clarke, and Schlossberg studies are excellent diagnostic tools.</p>
+          <ul>
+            <li>Reveal pressure creep</li>
+            <li>Reveal coordination breakdown</li>
+            <li>Reveal endurance imbalance</li>
+          </ul>
+          <div class="quote">Played mindlessly, they reinforce problems. Played diagnostically, they prevent them.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.9 Designing a weekly practice cycle</summary>
+          <p class="lead">Daily practice does not exist in isolation.</p>
+          <ul>
+            <li>High-demand days</li>
+            <li>Moderate maintenance days</li>
+            <li>Low-demand recovery days</li>
+          </ul>
+          <div class="quote">Ignoring weekly rhythm leads to cumulative fatigue, declining consistency, and burnout.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.10 Practice for performance vs practice for health</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Performance preparation emphasizes</h4>
+              <ul>
+                <li>Output</li>
+                <li>Reliability</li>
+                <li>Repetition under stress</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Health-focused practice emphasizes</h4>
+              <ul>
+                <li>Efficiency</li>
+                <li>Recovery</li>
+                <li>Adaptability</li>
+              </ul>
+            </div>
+          </div>
+          <div class="quote">During high-performance periods: prioritize reliability. During low-performance periods: rebuild and recalibrate.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.11 Common practice traps</summary>
+          <ul>
+            <li><strong>Trap 1:</strong> chasing sensation (“feeling worked” is not progress)</li>
+            <li><strong>Trap 2:</strong> avoiding weaknesses entirely</li>
+            <li><strong>Trap 3:</strong> constantly changing routines (no stability = no feedback)</li>
+            <li><strong>Trap 4:</strong> ignoring recovery (recovery is training)</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.12 Practice examples (integrated)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Calibration long tones</h4>
+              <p class="lead">Soft, centered sound, mid-register.</p>
+              <ul>
+                <li>IMSLP Arban: <a href="https://imslp.org/wiki/Grande_m%C3%A9thode_compl%C3%A8te_de_cornet_%C3%A0_pistons_(Arban,_Jean-Baptiste)" target="_blank" rel="noopener">Link</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Clarke studies (diagnostic use)</h4>
+              <p class="lead">Mezzo-piano, listen for pressure changes.</p>
+              <ul>
+                <li>Score: <a href="https://imslp.org/wiki/Technical_Studies_(Clarke,_Herbert_L.)" target="_blank" rel="noopener">IMSLP</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Repertoire integration</h4>
+            <p class="lead">Apply technique to musical context immediately.</p>
+            <ul>
+              <li>Example: <a href="https://www.youtube.com/watch?v=Kp7Z3dC1D9Y" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.13 Teacher diagnostics: evaluating practice effectiveness</summary>
+          <p class="lead">Ask students:</p>
+          <ul>
+            <li>Do you feel better after practice?</li>
+            <li>Does sound stabilize quickly?</li>
+            <li>Is tomorrow better or worse?</li>
+          </ul>
+          <div class="quote">If practice consistently worsens function, content is irrelevant.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>13.14 Summary</summary>
+          <p class="lead">Practice is not about doing more. It is about doing what the system can support.</p>
+          <div class="quote">Great players practice with the most awareness. Technique stabilizes when practice aligns with anatomy, recovery, and demand.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 14 -->
+      <section class="section" id="ch14" data-chapter>
+        <h3>Chapter 14: When Not to Change an Embouchure</h3>
+        <p class="lead">
+          Embouchure change is one of the most disruptive interventions in brass pedagogy.
+          If an embouchure works, the burden of proof lies with anyone proposing change.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>14.1 Why this chapter matters more than any other</summary>
+          <p class="lead">
+            Most embouchure disasters happen not because players never changed anything,
+            but because they changed something that didn’t need changing.
+          </p>
+          <ul>
+            <li>Change affects sound production, physical coordination, identity, confidence, and career trajectory.</li>
+          </ul>
+          <div class="quote">Function outweighs ideology.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.2 The seduction of “optimization”</summary>
+          <p class="lead">Many changes begin because someone wants to be better—not because something is broken.</p>
+          <ul>
+            <li>Wanting more range “just in case”</li>
+            <li>Pursuing a different sound concept</li>
+            <li>Comparing oneself to peers</li>
+            <li>Responding to external criticism</li>
+          </ul>
+          <div class="quote">Optimization assumes change is linear, reversible, and temporary. In embouchure mechanics, none are guaranteed.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.3 Defining a functional embouchure</summary>
+          <p class="lead">An embouchure is functionally sound if it:</p>
+          <ul>
+            <li>Produces consistent tone across registers</li>
+            <li>Meets the musical demands of the player’s context</li>
+            <li>Recovers fully within 24 hours</li>
+            <li>Does not require chronic warm-up rituals</li>
+            <li>Does not produce pain or swelling</li>
+          </ul>
+          <div class="quote">If these conditions are met, change is not justified. Aesthetic dissatisfaction alone is insufficient.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.4 The false promise of “starting over”</summary>
+          <p class="lead">“Starting over” promises a clean slate. In reality, it’s months/years of rebuilding with temporary unreliability.</p>
+          <ul>
+            <li>Appropriate only when function has collapsed, injury is present, or playing is no longer sustainable.</li>
+            <li>Should never be a casual decision.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.5 Survivorship bias and dangerous comparisons</summary>
+          <p class="lead">What you see online or in studios is not the full sample.</p>
+          <ul>
+            <li>You see the success stories; you don’t see the quiet failures and non-recoveries.</li>
+            <li>What worked for someone else may have worked despite inefficiency, not because of it.</li>
+          </ul>
+          <div class="quote">Pedagogy must be based on principles, not anecdotes.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.6 Teachers and the pressure to “do something”</summary>
+          <p class="lead">Teachers feel pressure to provide solutions. Sometimes the correct action is restraint.</p>
+          <ul>
+            <li>Temptations: adjust placement, recommend equipment changes, introduce new systems.</li>
+            <li>Often the advanced choice is allowing adaptation to occur.</li>
+          </ul>
+          <div class="quote">Doing nothing is sometimes the most skilled intervention.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.7 Signs an embouchure should be left alone</summary>
+          <p class="lead">Do not intervene if the player:</p>
+          <ul>
+            <li>Sounds consistently good</li>
+            <li>Meets performance demands</li>
+            <li>Improves with regular practice</li>
+            <li>Recovers reliably</li>
+            <li>Experiences stable confidence</li>
+          </ul>
+          <div class="quote">Unconventional does not mean inefficient.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.8 When change is justified (rare but real)</summary>
+          <p class="lead">Change may be justified when:</p>
+          <ul>
+            <li>Chronic injury persists</li>
+            <li>Range has collapsed irreversibly</li>
+            <li>Endurance fails catastrophically</li>
+            <li>Compensations escalate despite reduced load</li>
+            <li>Professional demands cannot be met</li>
+          </ul>
+          <div class="card gray">
+            <h4>If change is necessary</h4>
+            <ul>
+              <li>Slow</li>
+              <li>Supervised</li>
+              <li>Reversible where possible</li>
+              <li>With reduced expectations + recovery monitoring</li>
+            </ul>
+          </div>
+          <div class="quote">Emergency intervention is not optimization. It is triage.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.9 Psychological risk of embouchure change</summary>
+          <p class="lead">Embouchure is tied to identity. Change can trigger:</p>
+          <ul>
+            <li>Fear of loss</li>
+            <li>Obsession with sensation</li>
+            <li>Over-monitoring</li>
+            <li>Performance anxiety</li>
+          </ul>
+          <div class="quote">Addressing psychology is not optional; it determines compliance and recovery.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.10 The cost of unnecessary change</summary>
+          <p class="lead">Unnecessary change can lead to outcomes people rarely discuss publicly:</p>
+          <ul>
+            <li>Permanent loss of consistency</li>
+            <li>Reduced confidence</li>
+            <li>Shortened careers</li>
+            <li>Abandonment of the instrument</li>
+          </ul>
+          <div class="quote">Conservatism in embouchure pedagogy is not fear. It is ethical responsibility.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.11 Practice during non-change periods</summary>
+          <p class="lead">If change is not indicated, practice should focus on:</p>
+          <ul>
+            <li>Reinforcing efficiency</li>
+            <li>Expanding musical vocabulary</li>
+            <li>Strengthening recovery habits</li>
+          </ul>
+          <div class="quote">Technical obsession during stable periods often creates instability.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.12 Teacher diagnostics: the “do nothing” test</summary>
+          <p class="lead">Before intervening, ask:</p>
+          <ul>
+            <li>What specifically is failing?</li>
+            <li>Is the failure reproducible?</li>
+            <li>Does rest improve the issue?</li>
+            <li>Are demands exceeding design?</li>
+          </ul>
+          <div class="quote">If answers are unclear, wait. Time is a diagnostic tool.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.13 The role of humility in pedagogy</summary>
+          <ul>
+            <li>Not every problem needs solving.</li>
+            <li>Not every student needs changing.</li>
+            <li>Not every system applies universally.</li>
+          </ul>
+          <div class="quote">Humility protects students. Confidence without restraint destroys them.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>14.14 Final summary</summary>
+          <p class="lead">Embouchure change is not a badge of seriousness. It is a last resort.</p>
+          <div class="quote">The best embouchure is the one that works—reliably, sustainably, and musically.</div>
+        </details>
+      </section>
+
+      <!-- Chapter 15 -->
+      <section class="section" id="ch15" data-chapter>
+        <h3>Chapter 15: Clarke Technical Studies — Velocity, Efficiency, and Diagnostic Practice</h3>
+        <p class="lead">
+          Herbert L. Clarke studies are often treated as pure finger technique. In reality, they are one of the best
+          diagnostic tools for pressure creep, overblowing, and coordination breakdown—because they expose inefficiency
+          immediately when played softly and evenly.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>15.1 What Clarke is really training</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Direct outcomes</h4>
+              <ul>
+                <li>Even airflow + clean coordination across patterns</li>
+                <li>Stable core sound at moderate dynamics</li>
+                <li>Reduced “work” per note (efficiency)</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Hidden outcomes</h4>
+              <ul>
+                <li>Pressure management under repetition</li>
+                <li>Timing consistency (air ↔ tongue ↔ embouchure)</li>
+                <li>Early detection of fatigue-driven compensations</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>15.2 How to practice Clarke without building bad habits</summary>
+          <ul>
+            <li><strong>Start softer than you think</strong> (mezzo-piano → piano). If it only works loud, it’s compensating.</li>
+            <li><strong>Prioritize sound core</strong> over speed. Speed is a byproduct of efficiency.</li>
+            <li><strong>Rest on purpose</strong>. Clarke is repetition-heavy; recovery is part of the method.</li>
+            <li><strong>Watch for pressure creep</strong> as you repeat patterns or ascend.</li>
+          </ul>
+          <div class="quote">If your sound gets brighter, thinner, or harsher as you repeat, that’s not “warming up”—it’s inefficiency accumulating.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>15.3 Clarke as a diagnostic test</summary>
+          <p class="lead">Use Clarke to answer practical questions:</p>
+          <ul>
+            <li>Does tone degrade before you feel tired?</li>
+            <li>Do you need more pressure after 5–10 minutes?</li>
+            <li>Does articulation get “sticky” as you repeat?</li>
+            <li>Does playing <em>softer</em> make everything easier—or harder?</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>15.4 Recommended workflow (simple)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Phase A (2–5 min)</h4>
+              <p class="lead">One study, slow, very soft.</p>
+            </div>
+            <div class="card">
+              <h4>Phase B (5–10 min)</h4>
+              <p class="lead">Same study, moderate tempo, strict evenness.</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <h4>Stop rule</h4>
+            <p class="lead">If response collapses or pressure spikes, stop and return to calibration long tones.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>15.5 PDF</summary>
+          <ul>
+            <li><a href="books/Clarke%20Studies%20for%20trumpet.pdf" target="_blank" rel="noopener">Open: Clarke Studies for Trumpet (PDF)</a></li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- Chapter 16 -->
+      <section class="section" id="ch16" data-chapter>
+        <h3>Chapter 16: Stamp Warm-Ups — Centering, Response, and Recovery</h3>
+        <p class="lead">
+          The James Stamp approach is often described as “warm-ups,” but its real value is regulation: centering the sound,
+          restoring easy response, and building a daily baseline that protects the embouchure from force-driven habits.
+        </p>
+
+        <details open>
+          <summary><span class="dot"></span>16.1 What Stamp is (and isn’t)</summary>
+          <div class="grid">
+            <div class="card">
+              <h4>Stamp is</h4>
+              <ul>
+                <li>A centering routine</li>
+                <li>A response check</li>
+                <li>A recovery-friendly daily baseline</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>Stamp is not</h4>
+              <ul>
+                <li>A range method</li>
+                <li>An endurance “workout”</li>
+                <li>A substitute for fundamentals or repertoire practice</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>16.2 Why it works</summary>
+          <ul>
+            <li>Emphasizes smooth transitions (slurs) and stable resonance.</li>
+            <li>Keeps load low enough that coordination can self-organize.</li>
+            <li>Encourages consistent daily “reset,” which is crucial during high-demand periods.</li>
+          </ul>
+          <div class="quote">If Stamp feels hard, you’re probably turning it into effort-training instead of centering.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>16.3 How to use Stamp in a real practice day</summary>
+          <ul>
+            <li><strong>Before anything else:</strong> 5–10 minutes to establish response and sound.</li>
+            <li><strong>Between heavy segments:</strong> 1–3 minutes as a “reset.”</li>
+            <li><strong>On recovery days:</strong> Stamp + light music can maintain function without overload.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>16.4 Red flags while doing Stamp</summary>
+          <ul>
+            <li>Needing to push air hard to get response</li>
+            <li>Sudden pressure spikes</li>
+            <li>Sound gets bright/tight instead of centered</li>
+            <li>Recovery feels worse after “warm-up”</li>
+          </ul>
+          <div class="quote">Stamp should leave you better than you started.</div>
+        </details>
+
+        <details>
+          <summary><span class="dot"></span>16.5 PDF</summary>
+          <ul>
+            <li><a href="books/james-stamp.pdf" target="_blank" rel="noopener">Open: Stamp Warm-Ups (PDF)</a></li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="section" id="conclusion" data-chapter>
+        <h3>Conclusion: Toward Honest Trumpet Pedagogy</h3>
+        <p class="lead">
+          There is no perfect embouchure. There is only honest diagnosis.
+          There is no universal system. There are only appropriate ones.
+        </p>
+        <p class="lead">
+          The future of trumpet pedagogy lies not in discovering new techniques, but in learning when not to interfere.
+        </p>
+        <div class="footer">
+          Tip: Use the sidebar to jump chapters. Use search to filter chapters. This is a living document.
+        </div>
+      </section>
+
+      <div class="footer">
+        Built as a single-file HTML/CSS/JS page. You can drop this into any static host.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    const search = $('#search');
+    const nav = $('#nav');
+    const links = $$('#nav a');
+    const chapters = $$('[data-chapter]');
+
+    function setActive(hash){
+      const id = (hash || '#ch1').replace('#','');
+      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+    }
+
+    function filter(q){
+      const query = q.trim().toLowerCase();
+      if(!query){
+        chapters.forEach(s => s.classList.remove('hidden'));
+        links.forEach(a => a.classList.remove('hidden'));
+        return;
+      }
+
+      chapters.forEach(section => {
+        const text = section.innerText.toLowerCase();
+        const hit = text.includes(query);
+        section.classList.toggle('hidden', !hit);
+      });
+
+      links.forEach(a => {
+        const target = $('#'+a.dataset.target);
+        const hit = target && !target.classList.contains('hidden');
+        a.classList.toggle('hidden', !hit);
+      });
+    }
+
+    // Keyboard shortcut: / to focus search
+    window.addEventListener('keydown', (e) => {
+      if(e.key === '/' && document.activeElement !== search){
+        e.preventDefault();
+        search.focus();
+      }
+      if(e.key === 'Escape' && document.activeElement === search){
+        search.blur();
+        search.value = '';
+        filter('');
+      }
+    });
+
+    search.addEventListener('input', () => filter(search.value));
+
+    // Intersection observer for active nav
+    const obs = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible) setActive('#'+visible.target.id);
+    }, { root: null, threshold: [0.2, 0.4, 0.6] });
+
+    chapters.forEach(ch => obs.observe(ch));
+    setActive(location.hash);
+
+    window.addEventListener('hashchange', () => setActive(location.hash));
+  </script>
+</body>
+</html>
